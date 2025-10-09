@@ -3,7 +3,7 @@ pipeline {
 
   environment {
     KCFG_ID     = 'k8s-jenkins'                 // kubeconfig 凭据ID
-    POD_TMPL    = 'macos-pod.yaml'              // Pod 模板
+    POD_TMPL    = 'macos-pod14to15.yaml'              // Pod 模板
     BUILD_NODE  = "macos-${env.BUILD_TAG}"      // 本次构建唯一节点名
     JENKINS_URL = 'http://17.87.2.137:8080'     // Jenkins 根URL（不要以 / 结尾）
   }
@@ -146,7 +146,7 @@ kubectl -n ci create secret generic jenkins-macos-${NODE} \\
             sed -e "s/__BUILD_ID__/${BUILD_NODE}/g" \
                 -e "s/__HOST_PORT__/30222/g"  \
                 -e "s/__VZ_USER__/test/g" \
-                -e "s/__VZ_PASS__/test/g" macos-pod.yaml > rendered.yaml
+                -e "s/__VZ_PASS__/test/g" macos-pod14to15.yaml > rendered.yaml
 
             echo '===== rendered.yaml (compute env) ====='
             awk '/name: compute/{f=1} f{print} /name: jenkins-bootstrap/{f=0}' rendered.yaml
